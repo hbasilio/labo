@@ -8,7 +8,7 @@ require("data.table")
 require("rpart")
 require("parallel")
 
-ksemillas  <- c(102191, 200177, 410551, 552581, 892237) #reemplazar por las propias semillas
+ksemillas  <- c(100109, 200179, 300149, 400199, 500129) #reemplazar por las propias semillas
 
 #------------------------------------------------------------------------------
 #particionar agrega una columna llamada fold a un dataset que consiste en una particion estratificada segun agrupa
@@ -28,7 +28,7 @@ particionar  <- function( data,  division, agrupa="",  campo="fold", start=1, se
 ArbolEstimarGanancia  <- function( semilla, param_basicos )
 {
   #particiono estratificadamente el dataset
-  particionar( dataset, division=c(7,3), agrupa="clase_ternaria", seed= semilla )
+  particionar( dataset, division=c(7,3), agrupa="clase_ternaria", seed= semilla )  #Cambiar por la primer semilla de cada uno !
 
   #genero el modelo
   modelo  <- rpart("clase_ternaria ~ .",     #quiero predecir clase_ternaria a partir del resto
@@ -75,11 +75,11 @@ ArbolesMontecarlo  <- function( semillas, param_basicos )
 #------------------------------------------------------------------------------
 
 #Aqui se debe poner la carpeta de la computadora local
-setwd("X:\\gdrive\\austral2023v\\")   #Establezco el Working Directory
+setwd("C:\\Lab_Imp_1\\")   #Establezco el Working Directory
 #cargo los datos
 
 #cargo los datos
-dataset  <- fread("./datasets/dataset_pequeno.csv")
+dataset  <- fread("C:\\Lab_Imp_1\\datasets\\dataset_pequeno.csv")
 
 #trabajo solo con los datos con clase, es decir 202107
 dataset  <- dataset[ clase_ternaria!= "" ]
@@ -89,7 +89,7 @@ dataset  <- dataset[ clase_ternaria!= "" ]
 # HT  representa  Hiperparameter Tuning
 dir.create( "./exp/",  showWarnings = FALSE ) 
 dir.create( "./exp/HT2020/", showWarnings = FALSE )
-archivo_salida  <- "./exp/HT2020/gridsearch.txt"
+archivo_salida  <- "./exp/HT2020/gridsearch11.txt"
 
 #Escribo los titulos al archivo donde van a quedar los resultados
 #atencion que si ya existe el archivo, esta instruccion LO SOBREESCRIBE, y lo que estaba antes se pierde
@@ -98,20 +98,24 @@ cat( file=archivo_salida,
      sep= "",
      "max_depth", "\t",
      "min_split", "\t",
+     "min_bucket", "\t",
      "ganancia_promedio", "\n")
 
 
 #itero por los loops anidados para cada hiperparametro
 
-for( vmax_depth  in  c( 4, 6, 8, 10, 12, 14 )  )
 {
-for( vmin_split  in  c( 1000, 800, 600, 400, 200, 100, 50, 20, 10 )  )
-{
+  for( vmax_depth in c( 4, 6, 8, 10, 12, 14 ) )
+  {
+    for( vmin_split in c( 1600, 1000, 800, 600, 400, 200, 100, 50, 20, 10 ) )
+    {
+      for(vmin_bucket in c(2,4,8,16,32,vmin_split/4,vmin_split/2))
+      {
 
   #notar como se agrega
   param_basicos  <- list( "cp"=         -0.5,       #complejidad minima
                           "minsplit"=  vmin_split,  #minima cantidad de registros en un nodo para hacer el split
-                          "minbucket"=  5,          #minima cantidad de registros en una hoja
+                          "minbucket"= vmin_bucket, #minima cantidad de registros en una hoja
                           "maxdepth"=  vmax_depth ) #profundidad máxima del arbol
 
   #Un solo llamado, con la semilla 17
@@ -123,7 +127,11 @@ for( vmin_split  in  c( 1000, 800, 600, 400, 200, 100, 50, 20, 10 )  )
         sep= "",
         vmax_depth, "\t",
         vmin_split, "\t",
+        vmin_bucket, "\t",
         ganancia_promedio, "\n"  )
 
 }
 }
+}
+}
+

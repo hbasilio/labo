@@ -26,7 +26,7 @@ hs  <- makeParamSet(
           makeIntegerParam("maxdepth" , lower=  3L  , upper=   20L),
           forbidden = quote( minbucket > 0.5*minsplit ) )             # minbuket NO PUEDE ser mayor que la mitad de minsplit
 
-ksemilla_azar  <- 102191   #cambiar por la primer semilla
+ksemilla_azar  <- 500129   #cambiar por la primer semilla
 
 #------------------------------------------------------------------------------
 #graba a un archivo los componentes de lista
@@ -121,7 +121,7 @@ EstimarGanancia  <- function( x )
 {
    GLOBAL_iteracion  <<-  GLOBAL_iteracion + 1
 
-   xval_folds  <- 5
+   xval_folds  <- 5 
    ganancia  <- ArbolesCrossValidation( dataset,
                                         param= x, #los hiperparametros del arbol
                                         qfolds= xval_folds,  #la cantidad de folds
@@ -140,7 +140,7 @@ EstimarGanancia  <- function( x )
 #------------------------------------------------------------------------------
 #Aqui empieza el programa
 
-setwd("X:\\gdrive\\austral2023v\\")   #Establezco el Working Directory
+setwd("C:\\Lab_Imp_1\\")   #Establezco el Working Directory
 
 #cargo los datos
 dataset  <- fread("./datasets/dataset_pequeno.csv")

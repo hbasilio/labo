@@ -21,17 +21,17 @@ particionar  <- function( data,  division, agrupa="",  campo="fold", start=1, se
 #------------------------------------------------------------------------------
 
 #Aqui se debe poner la carpeta de la computadora local
-setwd("X:\\gdrive\\austral2023v\\")   #Establezco el Working Directory
+setwd("C:\\Lab_Imp_1\\GIT\\labo\\")   #Establezco el Working Directory
 
 #cargo los datos
-dataset  <- fread("./datasets/dataset_pequeno.csv")
+dataset  <- fread("C:\\Lab_Imp_1\\datasets\\dataset_pequeno.csv")
 
 #trabajo solo con los datos con clase, es decir 202107
 dataset  <- dataset[ clase_ternaria!= "" ]
 
 #particiono estratificadamente el dataset
 #Cambiar por la primer semilla de cada uno !
-particionar( dataset, division=c(7,3), agrupa="clase_ternaria", seed= 102191 )  #Cambiar por la primer semilla de cada uno !
+particionar( dataset, division=c(7,3), agrupa="clase_ternaria", seed= 500129 )  #Cambiar por la primer semilla de cada uno !
 
 
 param_basicos  <- list( "cp"=         -1,  #complejidad minima
@@ -60,7 +60,7 @@ dataset[  , ganancia :=  ifelse( clase_ternaria=="BAJA+2", 117000, -3000 ) ]
 #para testing agrego la probabilidad
 dataset[ fold==2 , prob_baja2 := prediccion[, "BAJA+2"] ]
 
-#calculo la ganancia en testing  qu es fold==2
+#calculo la ganancia en testing  que es fold==2
 ganancia_test  <- dataset[ fold==2 & prob_baja2 >  0.025, sum(ganancia) ]
 
 #escalo la ganancia como si fuera todo el dataset

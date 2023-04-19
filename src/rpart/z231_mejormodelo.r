@@ -74,11 +74,11 @@ ArbolesMontecarlo  <- function( semillas,  param_basicos )
 #------------------------------------------------------------------------------
 
 #Aqui se debe poner la carpeta de la computadora local
-setwd("X:\\gdrive\\austral2023v\\")   #Establezco el Working Directory
+setwd("C:\\Lab_Imp_1\\GIT\\labo\\")   #Establezco el Working Directory
 #cargo los datos
 
 #cargo los datos
-dataset  <- fread("./datasets/dataset_pequeno.csv")
+dataset  <- fread("C:\\Lab_Imp_1\\datasets\\dataset_pequeno.csv")
 
 #trabajo solo con los datos con clase, es decir 202101
 dataset  <- dataset[ clase_ternaria!= "" ]
