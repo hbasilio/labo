@@ -1,9 +1,9 @@
 
 
-set.seed( 102191 )
+set.seed( 400199 )
 
 #calcula cuantos encestes logra un jugador con indice de enceste prob
-#haciendo qyt tiros libres
+#haciendo qty tiros libres
 
 ftirar  <- function( prob, qty ){
   return( sum( runif(qty) < prob ) )

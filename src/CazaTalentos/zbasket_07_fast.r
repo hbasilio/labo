@@ -3,9 +3,9 @@
 #si hay un empate ( dos máximos) se queda con el que esta primero en el vector
 
 
-set.seed( 102191 )
+set.seed( 400199 )
 
-#calcula cuantos encestes logra un jugador con indice de enceste prob que hace qyt tiros libres
+#calcula cuantos encestes logra un jugador con indice de enceste prob que hace qty tiros libres
 ftirar  <- function( prob, qty ){
   vsize <- length(prob)
   return( rowSums( matrix( runif( qty*vsize ), vsize, qty)  <

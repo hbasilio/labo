@@ -6,7 +6,7 @@ require("data.table")
 require("rpart")
 require("rpart.plot")
 
-setwd("X:\\gdrive\\austral2023v\\" )  #establezco la carpeta donde voy a trabajar
+setwd("C:\\Lab_Imp_1\\" )  #establezco la carpeta donde voy a trabajar
 
 #cargo el dataset
 dataset  <- fread( "./datasets/dataset_pequeno.csv")
@@ -16,7 +16,7 @@ dir.create( "./exp/EA4810/", showWarnings = FALSE )
 setwd( "./exp/EA4810" )
 
 #uso esta semilla para los canaritos
-set.seed(102191)
+set.seed(403299)
 
 #agrego 30 variables canarito, random distribucion uniforme en el intervalo [0,1]
 for( i in  1:30 ) dataset[ , paste0("canarito", i ) :=  runif( nrow(dataset)) ]
@@ -34,6 +34,7 @@ modelo  <- rpart(formula= "clase_ternaria ~ .",
 
 
 #Grabo el arbol de canaritos
-pdf(file = "./arbol_canaritos.pdf", width=28, height=4)
+pdf(file = "./arbol_canaritosx1000minbucket.pdf", width=28, height=4)
 prp(modelo, extra=101, digits=-5, branch=1, type=4, varlen=0, faclen=0)
 dev.off()
+
