@@ -43,7 +43,7 @@ graficar_campo  <- function( campo )
 }
 #------------------------------------------------------------------------------
 #Aqui comienza el programa
-setwd("X:\\gdrive\\austral2023v\\")   #Establezco el Working Directory
+setwd("C:\\Lab_Imp_1\\")   #Establezco el Working Directory
 
 #cargo el dataset donde voy a entrenar
 dataset  <- fread("./datasets/dataset_pequeno.csv")
